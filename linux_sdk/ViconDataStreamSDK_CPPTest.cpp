@@ -30,6 +30,8 @@
 
 #include <time.h>
 
+// TO RUN ' g++ ViconDataStreamSDK_CPPTest.cpp -o test -Wl,-rpath=libs -Llibs/ -lViconDataStreamSDK_CPP '
+
 using namespace ViconDataStreamSDK::CPP;
 
 #define output_stream if(!LogFile.empty()) ; else std::cout 

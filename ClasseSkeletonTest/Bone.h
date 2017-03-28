@@ -9,8 +9,62 @@ class Bone
 	public:
 		/************CONSTRUCTION***********/
 	Bone();
+	Bone(const Bone& B);
+
 
 		/************METHODES************/
+
+			/****GETTERS****/
+// Get nom du bone
+	std::string getNomBone() const;
+
+// Get nom du bone parent
+	std::string getNomBoneParent() const;
+
+// Get nombre de bones enfants
+	unsigned int getNombreBoneEnfant() const;
+
+// Get nom d'un Bone enfant
+	std::vector<std::string> getNomBoneEnfant() const;
+
+// Get la translation globale
+	Output_GetSegmentGlobalTranslation getBoneGlobalTranslation() const;	
+
+// Get la rotation globale sous forme de matrice
+	Output_GetSegmentGlobalRotationMatrix getBoneGlobalRotationMatrix() const;
+
+// Get la rotation globale en quaternion
+	Output_GetSegmentGlobalRotationQuaternion getBoneGlobalRotationQuaternion() const;
+
+// Get la translation locale
+	Output_GetSegmentLocalTranslation getBoneLocalTranslation() const;
+
+// Get la rotation locale sous forme de matrice
+	Output_GetSegmentLocalRotationMatrix getBoneLocalRotationMatrix( ) const;
+
+// Get la rotation locale en quaternion
+	Output_GetSegmentLocalRotationQuaternion getBoneLocalRotationQuaternion() const;
+
+			/****SETTERS****/
+
+// Set la nouvelle translation globale
+	void setBoneGlobalTranslation(		const Client& MyClient, const std::string &nomSkeleton);	
+
+// Set la nouvelle rotation globale sous forme de matrice
+	void setBoneGlobalRotationMatrix( 	const Client& MyClient, const std::string &nomSkeleton);
+
+// Set la nouvelle rotation globale en quaternion
+	void setBoneGlobalRotationQuaternion( 	const Client& MyClient, const std::string &nomSkeleton);
+
+// Set la nouvelle translation locale
+	void setBoneLocalTranslation(		const Client& MyClient, const std::string &nomSkeleton);
+
+// Set la nouvelle rotation locale sous forme de matrice
+	void setBoneLocalRotationMatrix( 	const Client& MyClient, const std::string &nomSkeleton);
+
+// Set la nouvelle rotation locale en quaternion
+	void setBoneLocalRotationQuaternion(	const Client& MyClient, const std::string &nomSkeleton);
+
 
 		/************DESTRUCTEUR********/
 	~Bone();
@@ -18,33 +72,7 @@ class Bone
 		/************FRIENDS***********/
 	friend ostream& operator<<(ostream& flux, const Bone& B);
 
-	/************TRANSLATION ET ROTATION GLOBALE***************/
 
-// Obtenir la nouvelle translation globale
-	Output_GetSegmentGlobalTranslation m_newBoneGlobalTranslation(	const std::string &nomSkeleton,
-									const std::string &nomBone );
-
-// Obtenir la nouvelle rotation globale sous forme de matrice
-	Output_GetSegmentGlobalRotationMatrix m_newBoneGlobalRotationMatrix( 	const std::string &nomSkeleton,
-										const std::string &nomBone );
-
-// Obtenir la nouvelle rotation globale en quaternion
-	Output_GetSegmentGlobalRotationQuaternion m_newBoneGlobalRotationQuaternion(	const std::string &nomSkeleton,
-											const std::string &nomBone );
-
-	/************TRANSLATION ET ROTATION LOCALE***************/
-
-// Obtenir la nouvelle translation locale
-	Output_GetSegmentLocalTranslation m_newBoneLocalTranslation(	const std::string &nomSkeleton,
-									const std::string &nomBone );
-
-// Obtenir la nouvelle rotation locale sous forme de matrice
-	Output_GetSegmentLocalRotationMatrix m_newBoneLocalRotationMatrix( 	const std::string &nomSkeleton,
-										const std::string &nomBone );
-
-// Obtenir la nouvelle rotation locale en quaternion
-	Output_GetSegmentLocalRotationQuaternion m_newBoneLocalRotationQuaternion(	const std::string &nomSkeleton,
-											const std::string &nomBone );
 	private:
 
 // Le nom du bone (segment chez Vicon) : 
@@ -56,8 +84,8 @@ class Bone
 // Le nombre de bone enfant
 	unsigned int m_nombreBoneEnfant;
 
-// Le nom du bone enfant
-	std::string m_nomBoneEnfant;
+// Le nom des Bone enfants
+	std::vector<std::string> m_nomBoneEnfant;
 
 	/************TRANSLATION ET ROTATION GLOBALE***************/
 
@@ -74,13 +102,13 @@ class Bone
 	/************TRANSLATION ET ROTATION LOCALE***************/
 
 // La translation 'locale' du bone :
-	Output_GetSegmentLocalTranslation m_boneGlobalTranslation;
+	Output_GetSegmentLocalTranslation m_boneLocalTranslation;
 
 // La rotation 'locale' du bone sous forme de matrice : 
-	Output_GetSegmentLocalRotationMatrix m_boneGlobalRotationMatrix;
+	Output_GetSegmentLocalRotationMatrix m_boneLocalRotationMatrix;
 
 // La rotation 'locale' du bone en quaternion :
-	Output_GetSegmentLocalRotationQuaternion m_boneGlobalRotationQuaternion;
+	Output_GetSegmentLocalRotationQuaternion m_boneLocalRotationQuaternion;
 
 
 };

@@ -11,10 +11,28 @@ class Skeleton
 	public:
 		/************CONSTRUCTION***********/
 	Skeleton();
+	Skeleton(const Skeleton& S);
+
 
 		/************METHODES************/
 
+			/****GETTERS****/
+// Get le nom du Skeleton
+	std::string getNomSkeleton() const;
 
+// Get le nom du root Bone
+	std::string getNomRootBone() const;
+
+// Get le nombre de Bone dans le Skeleton
+	unsigned int getNombreTotalBones() const;
+
+// Get le Skeleton (ensemble de Bone)
+	std::vector<Bone> getSkeleton() const;
+
+			/****SETTERS****/
+
+// Set le nouveau Skeleton (collection de bones)
+	void setSkeleton();
 
 
 	
@@ -29,17 +47,17 @@ class Skeleton
 
 	private:
 
-// Le nom du squelette (subject chez Vicon) : 
+// Le nom du Skeleton (subject chez Vicon) : 
 	std::string m_nomSkeleton;
 
 // Le nom du bone 'root' (segment 'root' chez Vicon)
 	std::string m_nomRootBone;
 
-// Le nbre de bones du squelette :
+// Le nbre de bones du Skeleton :
 	unsigned int m_bonesCount;
 
-// L'ensemble des bones du squelette :
-	std::vector<Bone>m_allBones;
+// L'ensemble des bones du Skeleton :
+	std::vector<Bone> m_skeleton;
 };
 
 
