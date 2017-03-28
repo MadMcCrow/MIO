@@ -10,6 +10,7 @@ class Bone
 		/************CONSTRUCTION***********/
 	Bone();
 	Bone(const Bone& B);
+	Bone(const Client& MyClient, const std::string& _nomSkeleton, const unsigned int& _index); 
 
 
 		/************METHODES************/
@@ -65,6 +66,8 @@ class Bone
 // Set la nouvelle rotation locale en quaternion
 	void setBoneLocalRotationQuaternion(	const Client& MyClient, const std::string &nomSkeleton);
 
+// Set toutes les translations et rotations d'un seul coup
+	void setAllTranslationRotation(const Client& MyClient, const std::string &nomSkeleton)
 
 		/************DESTRUCTEUR********/
 	~Bone();

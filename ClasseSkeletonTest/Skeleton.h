@@ -9,9 +9,10 @@ class Skeleton
 {
 
 	public:
-		/************CONSTRUCTION***********/
+		/************CONSTRUCTEURS***********/
 	Skeleton();
 	Skeleton(const Skeleton& S);
+	Skeleton(const Client& MyClient, const unsigned int& index);
 
 
 		/************METHODES************/
@@ -24,7 +25,7 @@ class Skeleton
 	std::string getNomRootBone() const;
 
 // Get le nombre de Bone dans le Skeleton
-	unsigned int getNombreTotalBones() const;
+	unsigned int getBonesCount() const;
 
 // Get le Skeleton (ensemble de Bone)
 	std::vector<Bone> getSkeleton() const;
@@ -32,7 +33,7 @@ class Skeleton
 			/****SETTERS****/
 
 // Set le nouveau Skeleton (collection de bones)
-	void setSkeleton();
+	void setSkeleton(const Client& MyClient, const unsigned int& index);
 
 
 	

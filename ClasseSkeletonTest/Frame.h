@@ -36,7 +36,7 @@ class Frame
 			/****SETTERS****/
 
 // Set le nouveau Skeleton (collection de bone)
-	void setFrame();
+	void setFrame(const Client& MyClient);
 
 
 	
@@ -64,5 +64,5 @@ class Frame
 	unsigned int m_skeletonCount;
 
 // L'ensemble des Skeleton composant la Frame
-	std::vector<Skeleton> m_frame;
+	std::vector<Skeleton> m_frameSkeleton;
 };
