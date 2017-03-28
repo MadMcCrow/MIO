@@ -23,7 +23,8 @@ class Skeleton
 
 	
 		/************FRIENDS**************/
-	
+
+	friend ostream& operator<<(ostream& flux, const Skeleton& S);
 
 
 	private:

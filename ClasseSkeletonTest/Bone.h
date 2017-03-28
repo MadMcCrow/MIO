@@ -8,9 +8,15 @@ class Bone
 
 	public:
 		/************CONSTRUCTION***********/
-	Bone(); 
+	Bone();
 
 		/************METHODES************/
+
+		/************DESTRUCTEUR********/
+	~Bone();
+
+		/************FRIENDS***********/
+	friend ostream& operator<<(ostream& flux, const Bone& B);
 
 	/************TRANSLATION ET ROTATION GLOBALE***************/
 
