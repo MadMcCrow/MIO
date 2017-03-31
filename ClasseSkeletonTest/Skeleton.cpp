@@ -1,4 +1,4 @@
-#include "Skeleton.h";
+#include "Skeleton.h"
 
 using namespace ViconDataStreamSDK::CPP;
 
@@ -12,7 +12,7 @@ Skeleton::Skeleton() : 	m_nomSkeleton(),
 
 Skeleton::Skeleton(const Skeleton& S) : m_nomSkeleton(S.getNomSkeleton() ),
 					m_nomRootBone(S.getNomRootBone() ),
-					m_bonesCount(S.getNombreTotalBones() ),
+					m_bonesCount(S.getBonesCount() ),
 					m_skeleton(S.getSkeleton() )
 {}
 
@@ -68,19 +68,19 @@ Skeleton::~Skeleton()
 
 		/********FRIENDS********/
 
-ostream& operator<<(ostream& flux, const Skeleton& S)
+std::ostream& operator<<(std::ostream& flux, const Skeleton& S)
 {
 flux << "\t\tSTART OF SKELETON" << std::endl << std::endl;
 
 flux << "Name of skeleton :\t" << S.m_nomSkeleton << std::endl;
 flux << "Name of root bone :\t" << S.m_nomRootBone << std::endl;
 
-for(int i = 0; i < m_bonesCount; i++)
+for(int i = 0; i < S.m_bonesCount; i++)
 	{
 	flux << "\t" << S.m_skeleton[i];
 	}
 
 flux << "\t\tEND OF SKELETON" << std::endl << std::endl;
 
-return flux
+return flux;
 }

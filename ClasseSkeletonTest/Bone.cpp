@@ -35,7 +35,7 @@ m_nomBone = MyClient.GetSegmentName( _nomSkeleton, _index ).SegmentName;
 m_nomBoneParent = MyClient.GetSegmentParentName( _nomSkeleton, m_nomBone ).SegmentName;
 m_nombreBoneEnfant = MyClient.GetSegmentChildCount( _nomSkeleton, m_nomBone ).SegmentCount;
 
-for( unsigned int j = 0, j < m_nombreBoneEnfant; j++)
+for( unsigned int j = 0; j < m_nombreBoneEnfant; j++)
 	m_nomBoneEnfant[j] = MyClient.GetSegmentChildName( _nomSkeleton, m_nomBone, j ).SegmentName;
 
 
@@ -113,7 +113,7 @@ void Bone::setBoneGlobalRotationQuaternion( 	const Client& MyClient, const std::
 m_boneGlobalRotationQuaternion = MyClient.GetSegmentGlobalRotationQuaternion( nomSkeleton, m_nomBone );
 }
 
-void setBoneLocalTranslation(		const Client& MyClient, const std::string &nomSkeleton)
+void Bone::setBoneLocalTranslation(		const Client& MyClient, const std::string &nomSkeleton)
 {
 m_boneLocalTranslation = MyClient.GetSegmentLocalTranslation( nomSkeleton, m_nomBone );
 }
@@ -128,7 +128,7 @@ void Bone::setBoneLocalRotationQuaternion( 	const Client& MyClient, const std::s
 m_boneLocalRotationQuaternion = MyClient.GetSegmentLocalRotationQuaternion( nomSkeleton, m_nomBone );
 }
 
-void Bone::setAllTranslationRotation(const Client& MyClient, const std::string &nomSkeleton)
+void Bone::setAllTranslationRotation(const Client& MyClient, const std::string &_nomSkeleton)
 {
 setBoneGlobalTranslation(MyClient, _nomSkeleton);
 setBoneGlobalRotationMatrix(MyClient, _nomSkeleton);
@@ -147,7 +147,7 @@ Bone::~Bone()
 
 		/********FRIENDS********/
 
-ostream& operator<<(ostream& flux, const Bone& B)
+std::ostream& operator<<(std::ostream& flux, const Bone& B)
 {
 flux << "Start of Bone..."<< std::endl << std::endl;
 
@@ -171,8 +171,8 @@ flux << B.m_boneGlobalRotationMatrix.Rotation[8] << " )" << std::endl;
 
 flux << "Global Rotation Quaternion :\t( ";
 for(int i = 0; i < 3; i++)
-	flux << B.m_boneGlobalRotationQuaternion[i] << ", ";
-flux << B.m_boneGlobalRotationQuaternion[3] << " )" << std::endl;
+	flux << B.m_boneGlobalRotationQuaternion.Rotation[i] << ", ";
+flux << B.m_boneGlobalRotationQuaternion.Rotation[3] << " )" << std::endl;
 
 flux << "Local Translation :\t( ";
 flux  << B.m_boneLocalTranslation.Translation[0] << ", ";
@@ -187,8 +187,8 @@ flux << B.m_boneLocalRotationMatrix.Rotation[8] << " )" << std::endl;
 
 flux << "Local Rotation Quaternion :\t( ";
 for(int i = 0; i < 3; i++)
-	flux << B.m_boneLocalRotationQuaternion[i] << ", ";
-flux << B.m_boneLocalRotationQuaternion[3] << " )" << std::endl;
+	flux << B.m_boneLocalRotationQuaternion.Rotation[i] << ", ";
+flux << B.m_boneLocalRotationQuaternion.Rotation[3] << " )" << std::endl;
 
 flux << "End of Bone..."<< std::endl << std::endl;
 return flux;

@@ -10,7 +10,7 @@ class Bone
 		/************CONSTRUCTION***********/
 	Bone();
 	Bone(const Bone& B);
-	Bone(const Client& MyClient, const std::string& _nomSkeleton, const unsigned int& _index); 
+	Bone(const ViconDataStreamSDK::CPP::Client& MyClient, const std::string& _nomSkeleton, const unsigned int& _index); 
 
 
 		/************METHODES************/
@@ -29,51 +29,51 @@ class Bone
 	std::vector<std::string> getNomBoneEnfant() const;
 
 // Get la translation globale
-	Output_GetSegmentGlobalTranslation getBoneGlobalTranslation() const;	
+	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalTranslation getBoneGlobalTranslation() const;	
 
 // Get la rotation globale sous forme de matrice
-	Output_GetSegmentGlobalRotationMatrix getBoneGlobalRotationMatrix() const;
+	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationMatrix getBoneGlobalRotationMatrix() const;
 
 // Get la rotation globale en quaternion
-	Output_GetSegmentGlobalRotationQuaternion getBoneGlobalRotationQuaternion() const;
+	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationQuaternion getBoneGlobalRotationQuaternion() const;
 
 // Get la translation locale
-	Output_GetSegmentLocalTranslation getBoneLocalTranslation() const;
+	ViconDataStreamSDK::CPP::Output_GetSegmentLocalTranslation getBoneLocalTranslation() const;
 
 // Get la rotation locale sous forme de matrice
-	Output_GetSegmentLocalRotationMatrix getBoneLocalRotationMatrix( ) const;
+	ViconDataStreamSDK::CPP::Output_GetSegmentLocalRotationMatrix getBoneLocalRotationMatrix( ) const;
 
 // Get la rotation locale en quaternion
-	Output_GetSegmentLocalRotationQuaternion getBoneLocalRotationQuaternion() const;
+	ViconDataStreamSDK::CPP::Output_GetSegmentLocalRotationQuaternion getBoneLocalRotationQuaternion() const;
 
 			/****SETTERS****/
 
 // Set la nouvelle translation globale
-	void setBoneGlobalTranslation(		const Client& MyClient, const std::string &nomSkeleton);	
+	void setBoneGlobalTranslation(		const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);	
 
 // Set la nouvelle rotation globale sous forme de matrice
-	void setBoneGlobalRotationMatrix( 	const Client& MyClient, const std::string &nomSkeleton);
+	void setBoneGlobalRotationMatrix( 	const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);
 
 // Set la nouvelle rotation globale en quaternion
-	void setBoneGlobalRotationQuaternion( 	const Client& MyClient, const std::string &nomSkeleton);
+	void setBoneGlobalRotationQuaternion( 	const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);
 
 // Set la nouvelle translation locale
-	void setBoneLocalTranslation(		const Client& MyClient, const std::string &nomSkeleton);
+	void setBoneLocalTranslation(		const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);
 
 // Set la nouvelle rotation locale sous forme de matrice
-	void setBoneLocalRotationMatrix( 	const Client& MyClient, const std::string &nomSkeleton);
+	void setBoneLocalRotationMatrix( 	const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);
 
 // Set la nouvelle rotation locale en quaternion
-	void setBoneLocalRotationQuaternion(	const Client& MyClient, const std::string &nomSkeleton);
+	void setBoneLocalRotationQuaternion(	const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);
 
 // Set toutes les translations et rotations d'un seul coup
-	void setAllTranslationRotation(const Client& MyClient, const std::string &nomSkeleton)
+	void setAllTranslationRotation(const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &_nomSkeleton);
 
 		/************DESTRUCTEUR********/
 	~Bone();
 
 		/************FRIENDS***********/
-	friend ostream& operator<<(ostream& flux, const Bone& B);
+	friend std::ostream& operator<<(std::ostream& flux, const Bone& B);
 
 
 	private:
@@ -93,25 +93,27 @@ class Bone
 	/************TRANSLATION ET ROTATION GLOBALE***************/
 
 // La translation 'globale' du bone :
-	Output_GetSegmentGlobalTranslation m_boneGlobalTranslation;
+	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalTranslation m_boneGlobalTranslation;
 
 // La rotation 'globale' du bone sous forme de matrice : 
-	Output_GetSegmentGlobalRotationMatrix m_boneGlobalRotationMatrix;
+	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationMatrix m_boneGlobalRotationMatrix;
 
 // La rotation 'globale' du bone en quaternion :
-	Output_GetSegmentGlobalRotationQuaternion m_boneGlobalRotationQuaternion;
+	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationQuaternion m_boneGlobalRotationQuaternion;
 
 
 	/************TRANSLATION ET ROTATION LOCALE***************/
 
 // La translation 'locale' du bone :
-	Output_GetSegmentLocalTranslation m_boneLocalTranslation;
+	ViconDataStreamSDK::CPP::Output_GetSegmentLocalTranslation m_boneLocalTranslation;
 
 // La rotation 'locale' du bone sous forme de matrice : 
-	Output_GetSegmentLocalRotationMatrix m_boneLocalRotationMatrix;
+	ViconDataStreamSDK::CPP::Output_GetSegmentLocalRotationMatrix m_boneLocalRotationMatrix;
 
 // La rotation 'locale' du bone en quaternion :
-	Output_GetSegmentLocalRotationQuaternion m_boneLocalRotationQuaternion;
+	ViconDataStreamSDK::CPP::Output_GetSegmentLocalRotationQuaternion m_boneLocalRotationQuaternion;
 
 
 };
+
+#endif

@@ -19,13 +19,13 @@ class Frame
 
 			/****GETTERS****/
 // Get le numéro de frame
-	Output_GetFrameNumber getFrameNumber() const;
+	ViconDataStreamSDK::CPP::Output_GetFrameNumber getFrameNumber() const;
 
 // Get le framerate
-	Output_GetFrameRate getFrameRate() const;
+	ViconDataStreamSDK::CPP::Output_GetFrameRate getFrameRate() const;
 
 // Get le timecode
-	Output_GetTimecode getFrameTimeCode() const;
+	ViconDataStreamSDK::CPP::Output_GetTimecode getFrameTimeCode() const;
 
 // Get le nombre de Skeleton dans la Frame
 	unsigned int getSkeletonCount() const;
@@ -36,7 +36,7 @@ class Frame
 			/****SETTERS****/
 
 // Set le nouveau Skeleton (collection de bone)
-	void setFrame(const Client& MyClient);
+	void setFrame(const ViconDataStreamSDK::CPP::Client& MyClient);
 
 
 	
@@ -46,19 +46,19 @@ class Frame
 	
 		/************FRIENDS**************/
 
-	friend ostream& operator<<(ostream& flux, const Frame& F);
+	friend std::ostream& operator<<(std::ostream& flux, const Frame& F);
 
 
 	private:
 
 // Le numéro de la frame 
-	Output_GetFrameNumber m_frameNumber;
+	ViconDataStreamSDK::CPP::Output_GetFrameNumber m_frameNumber;
 
 // Le framerate
-	Output_GetFrameRate m_frameRate;
+	ViconDataStreamSDK::CPP::Output_GetFrameRate m_frameRate;
 
 // Le timecode 
-	Output_GetTimecode m_frameTimeCode;
+	ViconDataStreamSDK::CPP::Output_GetTimecode m_frameTimeCode;
 
 // Nombre de Skeleton dans la Frame 
 	unsigned int m_skeletonCount;
@@ -66,3 +66,5 @@ class Frame
 // L'ensemble des Skeleton composant la Frame
 	std::vector<Skeleton> m_frameSkeleton;
 };
+
+#endif

@@ -12,7 +12,7 @@ class Skeleton
 		/************CONSTRUCTEURS***********/
 	Skeleton();
 	Skeleton(const Skeleton& S);
-	Skeleton(const Client& MyClient, const unsigned int& index);
+	Skeleton(const ViconDataStreamSDK::CPP::Client& MyClient, const unsigned int& index);
 
 
 		/************METHODES************/
@@ -33,7 +33,7 @@ class Skeleton
 			/****SETTERS****/
 
 // Set le nouveau Skeleton (collection de bones)
-	void setSkeleton(const Client& MyClient, const unsigned int& index);
+	void setSkeleton(const ViconDataStreamSDK::CPP::Client& MyClient, const unsigned int& index);
 
 
 	
@@ -43,7 +43,7 @@ class Skeleton
 	
 		/************FRIENDS**************/
 
-	friend ostream& operator<<(ostream& flux, const Skeleton& S);
+	friend std::ostream& operator<<(std::ostream& flux, const Skeleton& S);
 
 
 	private:

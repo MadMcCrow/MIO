@@ -70,10 +70,10 @@ Frame::~Frame()
 
 		/********FRIENDS********/
 
-ostream& operator<<(ostream& flux, const Frame& F)
+std::ostream& operator<<(std::ostream& flux, const Frame& F)
 {
 flux << "\t$$$$ START OF FRAME $$$$" << std::endl << std::endl;
-flux << "Number of frame :\t" << F.m_frameNumber << std::endl;
+flux << "Number of frame :\t" << F.m_frameNumber.FrameNumber << std::endl;
 flux << "Framerate :\t" << F.m_frameRate.FrameRateHz  << " Hz" << std::endl;
 flux << "Frame TimeCode :\t" << F.m_frameTimeCode.Hours << ":" << F.m_frameTimeCode.Minutes << ":" << F.m_frameTimeCode.Seconds << std::endl;
 
