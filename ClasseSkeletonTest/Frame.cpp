@@ -18,6 +18,22 @@ Frame::Frame(const Frame& F):	m_frameNumber(F.getFrameNumber() ),
 				m_frameSkeleton(F.getFrameSkeletons() )
 {}
 
+Frame::Frame(const Client& MyClient)
+{
+m_frameNumber = MyClient.GetFrameNumber();
+m_frameRate = MyClient.GetFrameRate();
+m_frameTimeCode = MyClient.GetTimecode();
+m_skeletonCount = MyClient.GetSubjectCount().SubjectCount;
+
+m_frameSkeleton.reserve(m_skeletonCount);
+
+for( unsigned int i = 0 ; i < m_skeletonCount ; ++i )
+{
+	m_frameSkeleton.push_back( Skeleton(MyClient, i) );
+}
+
+}
+
 		/********GETTERS********/
 
 Output_GetFrameNumber Frame::getFrameNumber() const

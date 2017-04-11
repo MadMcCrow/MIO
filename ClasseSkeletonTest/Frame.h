@@ -13,6 +13,7 @@ class Frame
 		/************CONSTRUCTION***********/
 	Frame();
 	Frame(const Frame& F);
+	Frame(const ViconDataStreamSDK::CPP::Client& MyClient);
 
 
 		/************METHODES************/
