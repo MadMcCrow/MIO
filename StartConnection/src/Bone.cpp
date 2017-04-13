@@ -35,9 +35,12 @@ m_nomBone = MyClient.GetSegmentName( _nomSkeleton, _index ).SegmentName;
 m_nomBoneParent = MyClient.GetSegmentParentName( _nomSkeleton, m_nomBone ).SegmentName;
 m_nombreBoneEnfant = MyClient.GetSegmentChildCount( _nomSkeleton, m_nomBone ).SegmentCount;
 
-for( unsigned int j = 0; j < m_nombreBoneEnfant; j++)
-	m_nomBoneEnfant[j] = MyClient.GetSegmentChildName( _nomSkeleton, m_nomBone, j ).SegmentName;
+m_nomBoneEnfant.reserve(m_nombreBoneEnfant);
 
+for( unsigned int j = 0; j < m_nombreBoneEnfant; j++)
+{
+	m_nomBoneEnfant.push_back(MyClient.GetSegmentChildName( _nomSkeleton, m_nomBone, j ).SegmentName);
+}
 
 setAllTranslationRotation(MyClient, _nomSkeleton);
 }
@@ -152,7 +155,7 @@ std::ostream& operator<<(std::ostream& flux, const Bone& B)
 flux << "Start of Bone..."<< std::endl << std::endl;
 
 flux << "Name of bone :\t" << B.m_nomBone << std::endl;
-flux << "Parent of bone :\t" << B.m_nomBoneParent << std::endl;
+flux << "Name of parent :\t" << B.m_nomBoneParent << std::endl;
 
 size_t s(B.getNombreBoneEnfant() );
 for(int i = 0; i < s ; i++)

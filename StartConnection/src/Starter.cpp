@@ -86,6 +86,7 @@ for(int i=0; i != 3; ++i) // repeat to check disconnecting doesn't wreck next co
         std::cout << ".";
       }
 
+
       std::cout << std::endl;
       if(++Counter == FrameRateWindow)
       {
