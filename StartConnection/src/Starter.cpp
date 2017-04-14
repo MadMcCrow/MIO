@@ -3,6 +3,7 @@
 #include "Bone.h"
 #include "Skeleton.h"
 #include "Frame.h"
+#include <fstream>
 
 #ifdef WIN32
   #include <windows.h> // For Sleep()
@@ -26,6 +27,18 @@ int main(int argc, char* argv[] )
   // Make a new client
   Client MyClient;
 
+
+  // Opening a file
+  std::ofstream monFichier("Data.txt", std::ios::app);
+  if(monFichier)  //On teste si tout est OK
+  {
+  monFichier << " \t\t DONNEE DE MOCAP "<< std::endl;
+  monFichier.close();
+  }
+  else
+  {
+    std::cout << "ERREUR: Impossible d'ouvrir le fichier." << std::endl;
+  }
 for(int i=0; i != 3; ++i) // repeat to check disconnecting doesn't wreck next connect
 {
     // Connect to a server
@@ -100,7 +113,18 @@ for(int i=0; i != 3; ++i) // repeat to check disconnecting doesn't wreck next co
 	Frame MainFrame(MyClient);
 	//Displaying all info to see if it works
 	std::cout << MainFrame << std::endl;
+	//Saving data
+	monFichier.open("Data.txt", std::ios::app);
+	if(monFichier)
+	{
+	monFichier << MainFrame << std::endl;
 
+	}
+	else
+	{
+    	std::cout << "ERREUR: Impossible d'ouvrir le fichier." << std::endl;
+	}
+	monFichier.close();
     }
 
     // Disconnect and dispose
