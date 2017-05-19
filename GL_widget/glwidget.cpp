@@ -84,30 +84,7 @@ void GLWidget::setZWorldRotation(int angle)
         update();
     }
 }
-void GLWidget::setRColor(float r)
-{
-    if (r != m_rgbColor.x()) {
-        m_rgbColor.setX(r);
-        emit rColorChanged(r);
-        update();
-    }
-}
-void GLWidget::setGColor(float g)
-{
-    if (g != m_rgbColor.y()) {
-        m_rgbColor.setY(g);
-        emit gColorChanged(g);
-        update();
-    }
-}
-void GLWidget::setBColor(float b)
-{
-    if (b != m_rgbColor.z()) {
-        m_rgbColor.setZ(b);
-        emit bColorChanged(b);
-        update();
-    }
-}
+
 
 void GLWidget::cleanup()
 {
@@ -128,12 +105,14 @@ static const char *vertexShaderSourceCore =
     "in vec3 normal;\n"
     "out vec3 vert;\n"
     "out vec3 vertNormal;\n"
+    "out vec3 vertColor;\n"
     "uniform mat4 projMatrix;\n"
     "uniform mat4 mvMatrix;\n"
     "uniform mat3 normalMatrix;\n"
     "void main() {\n"
     "   vert = vertex.xyz;\n"
     "   vertNormal = normalMatrix * normal;\n"
+    "   vertColor = abs(normal);\n"
     "   gl_Position = projMatrix * mvMatrix * vertex;\n"
     "}\n";
 /**
@@ -144,14 +123,14 @@ static const char *fragmentShaderSourceCore =
     "#version 220\n"
     "in highp vec3 vert;\n"
     "in highp vec3 vertNormal;\n"
+    "in highp vec3 vertColor;\n"
     "out highp vec4 fragColor;\n"
-    "uniform highp vec3 color;\n"
     "uniform highp vec3 lightPos;\n"
     "void main() {\n"
     "   highp vec3 L = normalize(lightPos - vert);\n"
-    "   highp vec3 colo = normalize(color);\n"
+    "   highp vec3 color = vertColor;\n"
     "   highp float NL = max(dot(normalize(vertNormal), L), 0.0);\n"
-    "   highp vec3 col = clamp(colo * 0.2 + colo * 0.8 * NL, 0.0, 1.0);\n"
+    "   highp vec3 col = clamp(color * 0.2 + color * 0.8 * NL, 0.0, 1.0);\n"
     "   fragColor = vec4(col, 1.0);\n"
     "}\n";
 /**
@@ -164,12 +143,14 @@ static const char *vertexShaderSource =
     "attribute vec3 normal;\n"
     "varying vec3 vert;\n"
     "varying vec3 vertNormal;\n"
+    "varying vec3 vertColor;\n"
     "uniform mat4 projMatrix;\n"
     "uniform mat4 mvMatrix;\n"
     "uniform mat3 normalMatrix;\n"
     "void main() {\n"
     "   vert = vertex.xyz;\n"
     "   vertNormal = normalMatrix * normal;\n"
+    "   vertColor = abs(normal);\n"
     "   gl_Position = projMatrix * mvMatrix * vertex;\n"
     "}\n";
 
@@ -181,13 +162,13 @@ static const char *vertexShaderSource =
 static const char *fragmentShaderSource =
     "varying highp vec3 vert;\n"
     "varying highp vec3 vertNormal;\n"
-    "uniform highp vec3 color;\n"
+    "varying highp vec3 vertColor;\n"
     "uniform highp vec3 lightPos;\n"
     "void main() {\n"
     "   highp vec3 L = normalize(lightPos - vert);\n"
-    "   highp vec3 colo = normalize(color);\n"
+    "   highp vec3 color = vertColor;\n"
     "   highp float NL = max(dot(normalize(vertNormal), L), 0.0);\n"
-    "   highp vec3 col = clamp(colo * 0.2 + colo * 0.8 * NL, 0.0, 1.0);\n"
+    "   highp vec3 col = clamp(color * 0.2 + color * 0.8 * NL, 0.0, 1.0);\n"
     "   gl_FragColor = vec4(col, 1.0);\n"
     "}\n";
 
@@ -223,7 +204,6 @@ void GLWidget::initializeGL()
     m_mvMatrixLoc = m_program->uniformLocation("mvMatrix");
     m_normalMatrixLoc = m_program->uniformLocation("normalMatrix");
     m_lightPosLoc = m_program->uniformLocation("lightPos");
-    m_colorLoc = m_program->uniformLocation("color");
 
     // Create a vertex array object. In OpenGL ES 2.0 and OpenGL 2.x
     // implementations this is optional and support may not be present
@@ -245,7 +225,7 @@ void GLWidget::initializeGL()
     m_camera.translate(0, 0, -10);
 
     // Light position is fixed.
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 70));
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 30));
 
     m_program->release();
 }
@@ -281,7 +261,6 @@ void GLWidget::glDrawBone(){
     m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
     QMatrix3x3 normalMatrix = m_world.normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
-    m_program->setUniformValue(m_colorLoc, m_rgbColor);
     glDrawArrays(GL_TRIANGLES, 0, m_boneShape->vertexCount());
     m_program->release();
     }

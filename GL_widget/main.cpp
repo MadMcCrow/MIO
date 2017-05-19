@@ -33,6 +33,5 @@ int main(int argc, char *argv[])
         mainWindow.show();
     else
         mainWindow.showMaximized();
-
     return app.exec();
 }

@@ -32,10 +32,7 @@ public slots:
     void setYWorldRotation(int angle);
     void setZWorldRotation(int angle);
     void cleanup();
-    ///@remark just for fun
-    void setRColor(float r);
-    void setGColor(float g);
-    void setBColor(float b);
+
 
 signals:
     ///@remark built-in classes by Qt Team
@@ -43,10 +40,6 @@ signals:
     void yWorldRotationChanged(int angle);
     void zWorldRotationChanged(int angle);
 
-    ///@remark just for fun
-    void rColorChanged(float color);
-    void gColorChanged(float color);
-    void bColorChanged(float color);
 protected:
     ///@remark You guessed it. this was just modified to fit our needs ;)
     void initializeGL() override;
@@ -66,8 +59,6 @@ private:
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram *m_program;
-    QVector3D m_rgbColor;
-    int m_colorLoc;
     int m_projMatrixLoc;
     int m_mvMatrixLoc;
     int m_vMatrixLoc;

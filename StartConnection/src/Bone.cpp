@@ -99,6 +99,7 @@ return m_boneLocalRotationQuaternion;
 }
 
 
+
 		/********SETTERS********/
 
 void Bone::setBoneGlobalTranslation(	const Client& MyClient, const std::string &nomSkeleton)

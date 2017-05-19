@@ -27,6 +27,9 @@ class Bone
 
 // Get nom d'un Bone enfant
 	std::vector<std::string> getNomBoneEnfant() const;
+    
+// Get le vecteur vers le premier enfant.
+	std::vector<std::string> getBone() const;
 
 // Get la translation globale
 	ViconDataStreamSDK::CPP::Output_GetSegmentGlobalTranslation getBoneGlobalTranslation() const;	
@@ -46,7 +49,7 @@ class Bone
 // Get la rotation locale en quaternion
 	ViconDataStreamSDK::CPP::Output_GetSegmentLocalRotationQuaternion getBoneLocalRotationQuaternion() const;
 
-			/****SETTERS****/
+    /****SETTERS****/
 
 // Set la nouvelle translation globale
 	void setBoneGlobalTranslation(		const ViconDataStreamSDK::CPP::Client& MyClient, const std::string &nomSkeleton);	
@@ -89,6 +92,9 @@ class Bone
 
 // Le nom des Bone enfants
 	std::vector<std::string> m_nomBoneEnfant;
+    
+// La ref du premier bone enfants
+//	Bone& m_FirstBoneEnfant;
 
 	/************TRANSLATION ET ROTATION GLOBALE***************/
 
