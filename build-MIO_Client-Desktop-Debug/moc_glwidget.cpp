@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../MIO_Client/gl_widget/glwidget.h"
+#include "../MIO_TEST/gl_widget/glwidget.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GLWidget_t {
-    QByteArrayData data[10];
-    char stringdata0[144];
+    QByteArrayData data[12];
+    char stringdata0[172];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,13 +40,16 @@ QT_MOC_LITERAL(5, 60, 21), // "zWorldRotationChanged"
 QT_MOC_LITERAL(6, 82, 17), // "setXWorldRotation"
 QT_MOC_LITERAL(7, 100, 17), // "setYWorldRotation"
 QT_MOC_LITERAL(8, 118, 17), // "setZWorldRotation"
-QT_MOC_LITERAL(9, 136, 7) // "cleanup"
+QT_MOC_LITERAL(9, 136, 7), // "cleanup"
+QT_MOC_LITERAL(10, 144, 16), // "updateSkeleton_c"
+QT_MOC_LITERAL(11, 161, 10) // "GLSkeleton"
 
     },
     "GLWidget\0xWorldRotationChanged\0\0angle\0"
     "yWorldRotationChanged\0zWorldRotationChanged\0"
     "setXWorldRotation\0setYWorldRotation\0"
-    "setZWorldRotation\0cleanup"
+    "setZWorldRotation\0cleanup\0updateSkeleton_c\0"
+    "GLSkeleton"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,7 +59,7 @@ static const uint qt_meta_data_GLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,15 +67,16 @@ static const uint qt_meta_data_GLWidget[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
-       4,    1,   52,    2, 0x06 /* Public */,
-       5,    1,   55,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
+       4,    1,   57,    2, 0x06 /* Public */,
+       5,    1,   60,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    1,   58,    2, 0x0a /* Public */,
-       7,    1,   61,    2, 0x0a /* Public */,
-       8,    1,   64,    2, 0x0a /* Public */,
-       9,    0,   67,    2, 0x0a /* Public */,
+       6,    1,   63,    2, 0x0a /* Public */,
+       7,    1,   66,    2, 0x0a /* Public */,
+       8,    1,   69,    2, 0x0a /* Public */,
+       9,    0,   72,    2, 0x0a /* Public */,
+      10,    1,   73,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    3,
@@ -84,6 +88,7 @@ static const uint qt_meta_data_GLWidget[] = {
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 11,    2,
 
        0        // eod
 };
@@ -101,6 +106,7 @@ void GLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 4: _t->setYWorldRotation((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->setZWorldRotation((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->cleanup(); break;
+        case 7: _t->updateSkeleton_c((*reinterpret_cast< GLSkeleton(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -157,13 +163,13 @@ int GLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }
