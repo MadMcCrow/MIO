@@ -25,42 +25,44 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += main.cpp\
-    settingswindow.cpp \
-    startwindow.cpp \
+SOURCES += \
     log_widget/logwidget.cpp \
-    gl_widget/openglwidget.cpp \
     video_widget/videowidget.cpp \
-    miowindow.cpp \
     chat_widget/chatwidget.cpp \
-    gl_widget/glskeleton.cpp \
-    gl_widget/glwidget.cpp \
-    gl_widget/glstream.cpp \
     mio/Bone.cpp \
     mio/Frame.cpp \
     mio/Skeleton.cpp \
-    mio/Starter.cpp
+    mio/Starter.cpp \
+    gl_widget/glskeleton.cpp \
+    gl_widget/glstream.cpp \
+    gl_widget/glwidget.cpp \
+    main.cpp \
+    miowindow.cpp \
+    settingswindow.cpp \
+    startwindow.cpp \
+    sender.cpp
 
 HEADERS  += \
-    settingswindow.h \
-    startwindow.h \
     log_widget/logwidget.h \
-    gl_widget/openglwidget.h \
     video_widget/videowidget.h \
-    miowindow.h \
     chat_widget/chatwidget.h \
-    gl_widget/glskeleton.h \
-    gl_widget/glshape.h \
+    libs/DataStreamClient.h \
     gl_widget/glcube.h \
-    gl_widget/glwidget.h \
+    gl_widget/glshape.h \
+    gl_widget/glskeleton.h \
     gl_widget/glstream.h \
+    gl_widget/glwidget.h \
     libs/DataStreamClient.h \
     mio/Bone.h \
     mio/DataStreamClient.h \
     mio/Frame.h \
     mio/includes.h \
     mio/Skeleton.h \
-    mio/Starter.h
+    mio/Starter.h \
+    miowindow.h \
+    settingswindow.h \
+    startwindow.h \
+    sender.h
 
 FORMS += \
     chat_widget/chatwidget.ui

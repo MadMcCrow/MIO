@@ -2,7 +2,6 @@
 #define MIOWINDOW_H
 
 #include <settingswindow.h>
-#include <gl_widget/openglwidget.h>
 #include <log_widget/logwidget.h>
 #include <video_widget/videowidget.h>
 #include <chat_widget/chatwidget.h>

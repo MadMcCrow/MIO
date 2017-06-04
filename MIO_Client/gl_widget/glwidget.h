@@ -10,6 +10,7 @@
 #include "glcube.h"
 #include "glskeleton.h"
 
+///@remark thi is necessary for the correct use of the shaders
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
 /**
@@ -17,6 +18,7 @@ QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
  * @remark not thread safe. Should be run from main thread.
  * @todo replace m_skeleton by m_skeletons (vector of Skeletons)
  * @todo add signals and slot for content change
+ * @todo set the shaders inside the ".h" file for ease of lecture.
  */
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {

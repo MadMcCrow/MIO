@@ -3,6 +3,10 @@
 #include <QDataStream>  ///how we transfer
 #include "glskeleton.h" ///what we're transfering
 
+
+/**
+ * @brief The GLStream class - a simple pass-through class
+ */
 class GLStream
 {
 public:

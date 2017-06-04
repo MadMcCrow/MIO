@@ -15,8 +15,11 @@ public:
     }
 
 private:
+    /**
+     * @brief fill - just the data. vertice coordinate and then normal.
+     * @remark we use the normal as a coloring.
+     */
     void fill() {
-        // this whole thing is sub-optimal so why the f*** I wouldn't just lay all the vertices and normal like that.
         ///@remark Y up.
         m_data = {
                     -1.0f,-1.0f,-1.0f,   -1.0f, 0.0f, 0.0f,
