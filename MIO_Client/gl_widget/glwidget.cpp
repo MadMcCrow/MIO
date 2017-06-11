@@ -314,4 +314,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 void GLWidget::updateSkeleton_c(GLSkeleton sk)
 {
     m_skeleton = sk;
+    emit notifyMIOwindow_s();
+
 }

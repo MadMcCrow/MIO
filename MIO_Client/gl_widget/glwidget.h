@@ -68,6 +68,13 @@ signals:
     void yWorldRotationChanged(int angle);
     void zWorldRotationChanged(int angle);
 
+    /**
+     * @brief notifyMIOwindow_s - signal for notifying
+     * for now used to notify update
+     *  being done to the skeleton
+     */
+    void notifyMIOwindow_s();
+
 protected:
     ///@remark You guessed it. this was just modified to fit our needs ;)
     void initializeGL() override;

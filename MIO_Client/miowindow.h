@@ -38,7 +38,16 @@ public slots:
 
     void showSettings_c();
     void quit_c();
-    void ReceiveGlData_c(Frame F);
+    void receiveGlData_c(Frame* F);
+
+    /**
+     * @brief receivedGLnotify_c -GL widget notifies
+     * Used for notifying the gl update, but could be used
+     * for other things like error.
+     * @todo implement other reaction
+     * @see #GLWidget/notifyMIOwindow_s()
+     */
+    void receivedGLnotify_c();
 
 /// @remark Signals personnalisés (syntaxe finissant par _s)
 signals:
@@ -52,6 +61,12 @@ signals:
      */
     void changeGlWidget_s(GLSkeleton sk);
 
+    /**
+     * @brief finishedGLUpdate_s
+     * Specific Signal to tell all threads
+     * that we're done with the Frame.
+     */
+    void finishedGLUpdate_s();
 
 
 private:

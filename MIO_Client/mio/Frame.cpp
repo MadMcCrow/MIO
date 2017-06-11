@@ -72,7 +72,7 @@ void Frame::setFrame(const Client& MyClient)
 
     m_frameSkeleton.reserve(m_skeletonCount);
 
-    for(int i = 0; i < m_skeletonCount; i++)
+    for(size_t i = 0; i < m_skeletonCount; i++)
     {
         m_frameSkeleton.push_back(Skeleton(MyClient, i) );
     }
@@ -93,7 +93,7 @@ std::ostream& operator<<(std::ostream& flux, const Frame& F)
     flux << "Framerate :\t" << F.m_frameRate.FrameRateHz  << " Hz" << std::endl;
     flux << "Frame TimeCode :\t" << F.m_frameTimeCode.Hours << ":" << F.m_frameTimeCode.Minutes << ":" << F.m_frameTimeCode.Seconds << std::endl;
 
-    for(int i = 0; i < F.m_skeletonCount; i++)
+    for(size_t i = 0; i < F.m_skeletonCount; i++)
     {
         flux << F.m_frameSkeleton[i];
     }

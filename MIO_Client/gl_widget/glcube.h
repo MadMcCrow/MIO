@@ -8,6 +8,10 @@
 class glcube : public glshape
 {
 public:
+    /**
+     * @brief glcube - constructor.
+     * @todo  change the constructor to be in glshape
+     */
     glcube()
     {
 
@@ -18,6 +22,7 @@ private:
     /**
      * @brief fill - just the data. vertice coordinate and then normal.
      * @remark we use the normal as a coloring.
+     * @todo this should be a virtual function.
      */
     void fill() {
         ///@remark Y up.

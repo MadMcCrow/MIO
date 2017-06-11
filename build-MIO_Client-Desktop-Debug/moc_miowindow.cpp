@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MIOWindow_t {
-    QByteArrayData data[11];
-    char stringdata0[95];
+    QByteArrayData data[13];
+    char stringdata0[134];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,16 +37,19 @@ QT_MOC_LITERAL(2, 17, 0), // ""
 QT_MOC_LITERAL(3, 18, 16), // "changeGlWidget_s"
 QT_MOC_LITERAL(4, 35, 10), // "GLSkeleton"
 QT_MOC_LITERAL(5, 46, 2), // "sk"
-QT_MOC_LITERAL(6, 49, 14), // "showSettings_c"
-QT_MOC_LITERAL(7, 64, 6), // "quit_c"
-QT_MOC_LITERAL(8, 71, 15), // "ReceiveGlData_c"
-QT_MOC_LITERAL(9, 87, 5), // "Frame"
-QT_MOC_LITERAL(10, 93, 1) // "F"
+QT_MOC_LITERAL(6, 49, 18), // "finishedGLUpdate_s"
+QT_MOC_LITERAL(7, 68, 14), // "showSettings_c"
+QT_MOC_LITERAL(8, 83, 6), // "quit_c"
+QT_MOC_LITERAL(9, 90, 15), // "receiveGlData_c"
+QT_MOC_LITERAL(10, 106, 6), // "Frame*"
+QT_MOC_LITERAL(11, 113, 1), // "F"
+QT_MOC_LITERAL(12, 115, 18) // "receivedGLnotify_c"
 
     },
     "MIOWindow\0quit_s\0\0changeGlWidget_s\0"
-    "GLSkeleton\0sk\0showSettings_c\0quit_c\0"
-    "ReceiveGlData_c\0Frame\0F"
+    "GLSkeleton\0sk\0finishedGLUpdate_s\0"
+    "showSettings_c\0quit_c\0receiveGlData_c\0"
+    "Frame*\0F\0receivedGLnotify_c"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,30 +59,34 @@ static const uint qt_meta_data_MIOWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x06 /* Public */,
-       3,    1,   40,    2, 0x06 /* Public */,
+       1,    0,   49,    2, 0x06 /* Public */,
+       3,    1,   50,    2, 0x06 /* Public */,
+       6,    0,   53,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   43,    2, 0x0a /* Public */,
-       7,    0,   44,    2, 0x0a /* Public */,
-       8,    1,   45,    2, 0x0a /* Public */,
+       7,    0,   54,    2, 0x0a /* Public */,
+       8,    0,   55,    2, 0x0a /* Public */,
+       9,    1,   56,    2, 0x0a /* Public */,
+      12,    0,   59,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 9,   10,
+    QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -92,9 +99,11 @@ void MIOWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->quit_s(); break;
         case 1: _t->changeGlWidget_s((*reinterpret_cast< GLSkeleton(*)>(_a[1]))); break;
-        case 2: _t->showSettings_c(); break;
-        case 3: _t->quit_c(); break;
-        case 4: _t->ReceiveGlData_c((*reinterpret_cast< Frame(*)>(_a[1]))); break;
+        case 2: _t->finishedGLUpdate_s(); break;
+        case 3: _t->showSettings_c(); break;
+        case 4: _t->quit_c(); break;
+        case 5: _t->receiveGlData_c((*reinterpret_cast< Frame*(*)>(_a[1]))); break;
+        case 6: _t->receivedGLnotify_c(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -111,6 +120,13 @@ void MIOWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             typedef void (MIOWindow::*_t)(GLSkeleton );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MIOWindow::changeGlWidget_s)) {
                 *result = 1;
+                return;
+            }
+        }
+        {
+            typedef void (MIOWindow::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MIOWindow::finishedGLUpdate_s)) {
+                *result = 2;
                 return;
             }
         }
@@ -142,13 +158,13 @@ int MIOWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 7;
     }
     return _id;
 }
@@ -164,6 +180,12 @@ void MIOWindow::changeGlWidget_s(GLSkeleton _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+
+// SIGNAL 2
+void MIOWindow::finishedGLUpdate_s()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, Q_NULLPTR);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

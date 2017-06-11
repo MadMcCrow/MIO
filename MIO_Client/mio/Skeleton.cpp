@@ -75,7 +75,7 @@ std::ostream& operator<<(std::ostream& flux, const Skeleton& S)
     flux << "Name of skeleton :\t" << S.m_nomSkeleton << std::endl;
     flux << "Name of root bone :\t" << S.m_nomRootBone << std::endl;
 
-    for(int i = 0; i < S.m_bonesCount; i++)
+    for(size_t i = 0; i < S.m_bonesCount; i++)
     {
         flux << "\t" << S.m_skeleton[i];
     }

@@ -20,17 +20,30 @@ MIOWindow::MIOWindow() : QMainWindow()
     m_startWindow = new StartWindow(this);
 
     /// Widgets
-    //m_openGLWidget = new OpenGLWidget;
     m_glWidget = new GLWidget;
     m_logWidget = new LogWidget;
     m_videoWidget = new VideoWidget;
     m_chatWidget = new ChatWidget(this);
 
     /// Connections
-    QObject::connect(m_buttonQuit, SIGNAL(clicked()), qApp, SLOT(quit()));
-    QObject::connect(m_buttonPref, SIGNAL(clicked()), m_settingsWindow, SLOT(show()));
-    QObject::connect(this, SIGNAL(changeGlWidget_s(GLSkeleton)),
-                     m_glWidget, SLOT(updateSkeleton_c(GLSkeleton)));
+    QObject::connect(m_buttonQuit,
+                     SIGNAL(clicked()),
+                     qApp, SLOT(quit()));
+    QObject::connect(m_buttonPref,
+                     SIGNAL(clicked()),
+                     m_settingsWindow, SLOT(show()));
+    // update the GLSkeleton
+    QObject::connect(this,
+                     SIGNAL(changeGlWidget_s(GLSkeleton)),
+                     m_glWidget,
+                     SLOT(updateSkeleton_c(GLSkeleton)));
+
+    // receive proof of update
+    QObject::connect(m_glWidget,
+                     SIGNAL(notifyMIOwindow_s()),
+                     this,
+                     SLOT(receivedGLnotify_c()));
+
     /// Mise en place des elements
 
     QWidget *zonePrincipale = new QWidget();
@@ -77,12 +90,19 @@ void MIOWindow::quit_c()
     qApp->quit();
 }
 
-void MIOWindow::ReceiveGlData_c(Frame F)
+
+void MIOWindow::receiveGlData_c(Frame* F)
 {
     GLSkeleton source;
-    source.import(F.getFrameSkeletons().at(0));
+    source.import(F->getFrameSkeletons().at(0));
     m_glWidget->setSkeleton(source);
     emit changeGlWidget_s(source);
+
+}
+
+void MIOWindow::receivedGLnotify_c()
+{
+    emit finishedGLUpdate_s();
 }
 
 
@@ -100,7 +120,6 @@ MIOWindow::~MIOWindow()
 
     /// Widgets
     delete m_chatWidget;
-    //delete m_openGLWidget;
     delete m_glWidget;
     delete m_videoWidget;
     delete m_logWidget;
