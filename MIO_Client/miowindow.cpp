@@ -2,6 +2,7 @@
 #include "chat_widget/chatwidget.h"
 #include "startwindow.h"
 #include "gl_widget/glskeleton.h"
+#include <iostream>
 
 MIOWindow::MIOWindow() : QMainWindow()
 {
@@ -34,7 +35,7 @@ MIOWindow::MIOWindow() : QMainWindow()
                      m_settingsWindow, SLOT(show()));
     // update the GLSkeleton
     QObject::connect(this,
-                     SIGNAL(changeGlWidget_s(GLSkeleton)),
+                     SIGNAL(updateGLSkeleton_s(GLSkeleton)),
                      m_glWidget,
                      SLOT(updateSkeleton_c(GLSkeleton)));
 
@@ -49,10 +50,10 @@ MIOWindow::MIOWindow() : QMainWindow()
     QWidget *zonePrincipale = new QWidget();
 
     QGridLayout *gridLayout = new QGridLayout;
-    gridLayout->addWidget(m_videoWidget, 0, 0, 1, 1);
+    //gridLayout->addWidget(m_videoWidget, 0, 0, 1, 1);
     //gridLayout->addWidget(m_openGLWidget, 0, 1, 1, 1);
-    gridLayout->addWidget(m_glWidget, 0, 1, 1, 1);
-    gridLayout->addWidget(m_chatWidget, 1, 0, 1, 2);
+    gridLayout->addWidget(m_glWidget, 0, 0, 2, 2);
+    //gridLayout->addWidget(m_chatWidget, 1, 0, 1, 2);
     gridLayout->addWidget(m_buttonPref, 2, 0, 1, 1);
     gridLayout->addWidget(m_buttonQuit, 2, 1, 1, 1);
 
@@ -94,15 +95,25 @@ void MIOWindow::quit_c()
 void MIOWindow::receiveGlData_c(Frame* F)
 {
     GLSkeleton source;
-    source.import(F->getFrameSkeletons().at(0));
-    m_glWidget->setSkeleton(source);
-    emit changeGlWidget_s(source);
 
+    if(F->getSkeletonCount()<1)
+    {
+    std::cout<< "ErrorNoSkeleton" << std::endl;
+    }else{
+        source = F->getFrameSkeletons().at(0);
+        std::cout <<"source size : " << source.size() << "  "<< std::endl;
+        emit updateGLSkeleton_s(source);
+    }
 }
 
 void MIOWindow::receivedGLnotify_c()
 {
     emit finishedGLUpdate_s();
+}
+
+void MIOWindow::ErrorOnOther_c(size_t ErrCode){
+    //Something went wrong
+    //emit updateGLShape_s();
 }
 
 

@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QThread>
 
+#define RAWTEST
 
 /*
 void DataRetriever(Starter &miovicon)
@@ -22,8 +23,13 @@ void DataRetriever(Starter &miovicon)
 
 class MioThread : public QThread
 {
+public slots:
+    void dontRun(){dr = false;}
+    void doRun(){dr = true;}
 protected:
-    void run() { exec(); }
+    void run() { msleep(5);if(dr)exec(); }
+private:
+    bool dr = true;
 };
 
 
@@ -32,18 +38,20 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     ///@remark start the QT window
     MIOWindow MIOMainWindow;
-    Starter miovicon("localhost:801");
+    Starter miovicon("192.168.0.2:801");
 
     //creating the Vicon Thread
     MioThread Viconthread;
 
+
     miovicon.moveToThread(&Viconthread);
     ///@remark open the settings window if the connection failed.
+#ifndef RAWTEST
     QObject::connect(&miovicon,
                      SIGNAL(ConnectionFailed_s()),
                      &MIOMainWindow,
                      SLOT(showSettings_c()));
-
+#endif
     /// pass the data
     QObject::connect(&miovicon,
                      SIGNAL(DataRetrieved_s(Frame*)),
@@ -53,6 +61,11 @@ int main(int argc, char *argv[])
     miovicon.connect(&Viconthread,
                          SIGNAL(started()),
                          SLOT(retrieveData()));
+
+    QObject::connect(&app,SIGNAL(aboutToQuit()),&Viconthread,SLOT(dontRun()));
+    Viconthread.connect(&app,
+                         SIGNAL(lastWindowClosed()),
+                         SLOT(terminate()));
 
     ///@remark We must launch the thread
     /// @todo launch it only when adress of the Vicon Machine is entered

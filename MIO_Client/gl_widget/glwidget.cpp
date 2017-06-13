@@ -229,10 +229,9 @@ void GLWidget::initializeGL()
 
     // Here is the camera operations
     m_camera.setToIdentity();
-    m_camera.translate(0, 0, -10);
-
+    m_camera.lookAt(QVector3D(6000, 0, 0),QVector3D(0, 0, 0),QVector3D(0,-1, 0));
     // Light position is fixed.
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 30));
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 3000));
 
     m_program->release();
 }
@@ -263,7 +262,7 @@ void GLWidget::glDrawBone(){
     m_world.rotate(m_yWorldRot / 16.0f, 0, 1, 0);
     m_world.rotate(m_zWorldRot / 16.0f, 0, 0, 1);
     /// and we get the correct transform matrix from our bone.
-    m_world *= bone;
+    m_world = m_world * bone;
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
@@ -281,12 +280,13 @@ void GLWidget::paintGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glDrawBone();
+    update();
 }
 
 void GLWidget::resizeGL(int w, int h)
 {
     m_proj.setToIdentity();
-    m_proj.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
+    m_proj.perspective(45.0f, GLfloat(w) / h, 0.01f, 3000000000.0f);
 }
 
 

@@ -49,6 +49,13 @@ public slots:
      */
     void receivedGLnotify_c();
 
+    /**
+     * @brief ErrorOnOther_c - get notified of an error
+     * @param ErrCode - an indication of who failed
+     * @todo implement this everywhere.
+     */
+    void ErrorOnOther_c(size_t ErrCode);
+
 /// @remark Signals personnalisés (syntaxe finissant par _s)
 signals:
     /**
@@ -56,10 +63,9 @@ signals:
      */
     void quit_s();
 
-    /**
-     * @brief changeGL_s -
-     */
-    void changeGlWidget_s(GLSkeleton sk);
+
+    void updateGLSkeleton_s(GLSkeleton sk);
+    //void updateGLShape_s(glshape sh);
 
     /**
      * @brief finishedGLUpdate_s
@@ -79,7 +85,6 @@ private:
     StartWindow *m_startWindow;
 
     /// Widgets
-    //OpenGLWidget *m_openGLWidget;
     LogWidget *m_logWidget;
     VideoWidget *m_videoWidget;
     ChatWidget *m_chatWidget;

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Starter_t {
-    QByteArrayData data[8];
-    char stringdata0[83];
+    QByteArrayData data[9];
+    char stringdata0[102];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,14 +36,15 @@ QT_MOC_LITERAL(1, 8, 15), // "DataRetrieved_s"
 QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 6), // "Frame*"
 QT_MOC_LITERAL(4, 32, 18), // "ConnectionFailed_s"
-QT_MOC_LITERAL(5, 51, 8), // "finished"
-QT_MOC_LITERAL(6, 60, 12), // "retrieveData"
-QT_MOC_LITERAL(7, 73, 9) // "terminate"
+QT_MOC_LITERAL(5, 51, 18), // "ConnectionSucces_s"
+QT_MOC_LITERAL(6, 70, 8), // "finished"
+QT_MOC_LITERAL(7, 79, 12), // "retrieveData"
+QT_MOC_LITERAL(8, 92, 9) // "terminate"
 
     },
     "Starter\0DataRetrieved_s\0\0Frame*\0"
-    "ConnectionFailed_s\0finished\0retrieveData\0"
-    "terminate"
+    "ConnectionFailed_s\0ConnectionSucces_s\0"
+    "finished\0retrieveData\0terminate"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,24 +54,26 @@ static const uint qt_meta_data_Starter[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x06 /* Public */,
-       4,    0,   42,    2, 0x06 /* Public */,
-       5,    0,   43,    2, 0x06 /* Public */,
+       1,    1,   44,    2, 0x06 /* Public */,
+       4,    0,   47,    2, 0x06 /* Public */,
+       5,    0,   48,    2, 0x06 /* Public */,
+       6,    0,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       6,    0,   44,    2, 0x0a /* Public */,
-       7,    0,   45,    2, 0x0a /* Public */,
+       7,    0,   50,    2, 0x0a /* Public */,
+       8,    0,   51,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -89,9 +92,10 @@ void Starter::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->DataRetrieved_s((*reinterpret_cast< Frame*(*)>(_a[1]))); break;
         case 1: _t->ConnectionFailed_s(); break;
-        case 2: _t->finished(); break;
-        case 3: _t->retrieveData(); break;
-        case 4: _t->terminate(); break;
+        case 2: _t->ConnectionSucces_s(); break;
+        case 3: _t->finished(); break;
+        case 4: _t->retrieveData(); break;
+        case 5: _t->terminate(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -113,8 +117,15 @@ void Starter::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         }
         {
             typedef void (Starter::*_t)();
-            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Starter::finished)) {
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Starter::ConnectionSucces_s)) {
                 *result = 2;
+                return;
+            }
+        }
+        {
+            typedef void (Starter::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&Starter::finished)) {
+                *result = 3;
                 return;
             }
         }
@@ -146,13 +157,13 @@ int Starter::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }
@@ -171,9 +182,15 @@ void Starter::ConnectionFailed_s()
 }
 
 // SIGNAL 2
-void Starter::finished()
+void Starter::ConnectionSucces_s()
 {
     QMetaObject::activate(this, &staticMetaObject, 2, Q_NULLPTR);
+}
+
+// SIGNAL 3
+void Starter::finished()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, Q_NULLPTR);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

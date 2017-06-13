@@ -7,6 +7,7 @@
 
 #endif
 
+#define  DEBUG
 using namespace ViconDataStreamSDK::CPP;
 
 
@@ -16,14 +17,14 @@ Starter::Starter(std::string _HostName)
 
 }
 
-void Starter::startConnection(std::string HostName)
+void Starter::startConnection()
 {
     // Connect to a server
-    std::cout << "Connecting to " << HostName << " ..." <<  std::endl;
+    std::cout << "Connecting to " << m_host << " ..." <<  std::endl;
     while( !m_Client.IsConnected().Connected )
     {
         // Direct connection
-        if(m_Client.Connect( HostName ).Result != Result::Success)
+        if(m_Client.Connect( m_host ).Result != Result::Success)
         {
             emit ConnectionFailed_s();
             std::cout << "Warning - connect failed..." << std::endl;
@@ -54,9 +55,9 @@ void Starter::retrieveData()
     while (!m_Client.IsConnected().Connected)
     {
         std::cout << "thread was started without a proper connection\n";
-        startConnection(m_host);
+        startConnection();
     }
-
+    std::cout << "Connection done\n";
     static size_t FrameRateWindow = 1000; // frames
     size_t Counter = 0;
     clock_t LastTime = clock();
@@ -67,20 +68,53 @@ void Starter::retrieveData()
     while(true)
 #endif
     {
+#ifdef WIN32
+        Sleep(15);
+#else
+        usleep(15);
+#endif
+        m_Client.EnableSegmentData();
+        m_Client.EnableUnlabeledMarkerData();
+        m_Client.EnableDebugData();
         // Get a frame
-        std::cout << "Waiting for new frame... ";
-        std::cout << std::endl;
         if(++Counter == FrameRateWindow)
         {
             clock_t Now = clock();
             double FrameRate = (double)(FrameRateWindow * CLOCKS_PER_SEC) / (double)(Now - LastTime);
             LastTime = Now;
             Counter = 0;
-            std::cout << FrameRate;
         }
         //Getting frame information
         m_MIOFrame = Frame(m_Client);
-        std::cout << "Frame Captured \n";
+        Result::Enum TEST;
+;
+#ifdef DEBUG
+TEST = m_Client.GetFrame().Result;
+///@remark debugger
+switch (TEST) {
+case Result::Enum::NotConnected:
+    std::cout << "NotConnected" <<std::endl;
+    break;
+case Result::Enum::Success:
+    std::cout << "Success" <<std::endl;
+    break;
+case Result::Enum::InvalidIndex:
+    std::cout << "InvalidIndex" <<std::endl;
+    break;
+case Result::Enum::NoFrame:
+    std::cout << "NoFrame" <<std::endl;
+    break;
+case Result::Enum::Unknown:
+    std::cout << "Unknown" <<std::endl;
+    break;
+default:
+    break;
+}
+#endif
+
+        size_t T = m_Client.GetSubjectCount().SubjectCount;
+        std::cout << "number of skeleton: " << T <<std::endl;
+
         ///@bug: this will probably fail,
         /// passing a pointer to something alive
         emit DataRetrieved_s(&m_MIOFrame);

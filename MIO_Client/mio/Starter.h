@@ -34,6 +34,7 @@ signals:
      */
     void DataRetrieved_s(Frame*);
     void ConnectionFailed_s();
+    void ConnectionSucces_s();
     void finished();
 
 public slots:
@@ -55,7 +56,7 @@ private:
     * @remark used in constructor.
     * @param HostName contains the adress of the Vicon server.
     */
-    void startConnection(std::string HostName);
+    void startConnection();
 
 
     /**
