@@ -23,7 +23,7 @@ GLWidget::GLWidget(QWidget *parent)
     /// --transparent causes the clear color to be transparent. Therefore, on systems that
     /// support it, the widget will become transparent apart from the logo.
     m_transparent = QCoreApplication::arguments().contains(QStringLiteral("--transparent"));
-    //m_transparent = true;
+    m_transparent = true;
     if (m_transparent) {
         QSurfaceFormat fmt = format();
         fmt.setAlphaBufferSize(8);
@@ -97,6 +97,7 @@ void GLWidget::cleanup()
 {
     makeCurrent();
     m_vbo.destroy();
+    //m_vbo2.destroy();
     delete m_program;
     m_program = 0;
     doneCurrent();
@@ -194,7 +195,7 @@ void GLWidget::initializeGL()
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &GLWidget::cleanup);
 
     initializeOpenGLFunctions();
-    glClearColor(0, 0, 0, m_transparent ? 0 : 1);
+    glClearColor(0.75, 0.75, 0.75, m_transparent ? 0 : 1);
 
     // shader compiling
     m_program = new QOpenGLShaderProgram;
@@ -223,15 +224,23 @@ void GLWidget::initializeGL()
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(m_boneShape->constData(), m_boneShape->count() * sizeof(GLfloat));
-
+    m_vbo.release();
+    ///Same here for the ground
+    /*
+    glplane *ground = new glplane;
+    m_vbo2.create();
+    m_vbo2.bind();
+    m_vbo2.allocate(ground->constData(), ground->count() * sizeof(GLfloat));
+    m_vbo.release();
+    */
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
     // Here is the camera operations
     m_camera.setToIdentity();
-    m_camera.lookAt(QVector3D(6000, 0, 0),QVector3D(0, 0, 0),QVector3D(0,-1, 0));
+    m_camera.lookAt(QVector3D(50, -10, 0),QVector3D(0, 0, 0),QVector3D(0,-1, 0));
     // Light position is fixed.
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 3000));
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, -90,0));
 
     m_program->release();
 }
@@ -239,6 +248,7 @@ void GLWidget::initializeGL()
 ///@brief: this functions seems to activate the access to the vertexAttribArray (AFAIK)
 void GLWidget::setupVertexAttribs()
 {
+    ///@remark First V
     m_vbo.bind();
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
 
@@ -248,29 +258,41 @@ void GLWidget::setupVertexAttribs()
     ///@remark reminder :glVertexAttribPointer(attribute, dimensions, type, normalize,vertex size, interlacing);
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
     f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
-
-    ///@remark now that vertex
     m_vbo.release();
+
+    /*
+    m_vbo2.bind();
+    f->glEnableVertexAttribArray(0); ///@remark vertex position
+    f->glEnableVertexAttribArray(1); ///@remark vertex normal
+    ///@remark reminder :glVertexAttribPointer(attribute, dimensions, type, normalize,vertex size, interlacing);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+    m_vbo2.release();
+    */
 }
 
 void GLWidget::glDrawBone(){
-    for(const auto &bone : m_skeleton)
-    {
+
     m_world.setToIdentity();
     ///setting up the view from the camera: that's not the camera that rotate, that's the whole world.
     m_world.rotate(180.0f - (m_xWorldRot / 16.0f), 1, 0, 0);
     m_world.rotate(m_yWorldRot / 16.0f, 0, 1, 0);
     m_world.rotate(m_zWorldRot / 16.0f, 0, 0, 1);
+    QMatrix4x4 TempViewTrans = m_world;
+    for(const auto &bone : m_skeleton)
+    {
+    m_vbo.bind();
+    m_world = TempViewTrans;
     /// and we get the correct transform matrix from our bone.
     m_world = m_world * bone;
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
     m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
-    QMatrix3x3 normalMatrix = m_world.normalMatrix();
-    m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
+    m_program->setUniformValue(m_normalMatrixLoc, m_world.normalMatrix());
     glDrawArrays(GL_TRIANGLES, 0, m_boneShape->vertexCount());
     m_program->release();
+    m_vbo.release();
     }
 }
 
@@ -279,14 +301,17 @@ void GLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
+
     glDrawBone();
+
+    ///refresh quand il n'y a plus de creme fraiche
     update();
 }
 
 void GLWidget::resizeGL(int w, int h)
 {
     m_proj.setToIdentity();
-    m_proj.perspective(45.0f, GLfloat(w) / h, 0.01f, 3000000000.0f);
+    m_proj.perspective(45.0f, GLfloat(w) / h, 0.01f, 30000000.0f);
 }
 
 

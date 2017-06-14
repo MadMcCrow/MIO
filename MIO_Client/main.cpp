@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
                          SIGNAL(started()),
                          SLOT(retrieveData()));
 
-    QObject::connect(&app,SIGNAL(aboutToQuit()),&Viconthread,SLOT(dontRun()));
+    QObject::connect(&app,SIGNAL(aboutToQuit()),&Viconthread,SLOT(terminate()));
     Viconthread.connect(&app,
                          SIGNAL(lastWindowClosed()),
                          SLOT(terminate()));

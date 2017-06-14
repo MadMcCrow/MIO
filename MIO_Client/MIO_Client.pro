@@ -62,7 +62,8 @@ HEADERS  += \
     miowindow.h \
     settingswindow.h \
     startwindow.h \
-    sender.h
+    sender.h \
+    gl_widget/glplane.h
 
 FORMS += \
     chat_widget/chatwidget.ui
