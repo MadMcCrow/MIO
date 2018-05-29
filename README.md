@@ -12,5 +12,12 @@ The goal to the project is to achieve a connexion between a technician and a dis
 - Tool to push stored data to the user at the end of the session.
 
 ## What we have done? ##
-Nothing
 
+This program uses Qt to collect Data from Vicon SDK and can stream it to another distant IP.
+Server and client can communicate throught a Chat system.
+
+## EOL
+
+This project was supported and done in formerly UVHC ( University of Valenciennes ) now called "Université Polytechnique des hauts de France". 
+ Due to the obtention of their master degree , the authors have abandonned this project.
+ A new project using STL and GLM for the core engine as well as a more well build framework design only to 
