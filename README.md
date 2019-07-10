@@ -19,5 +19,5 @@ Server and client can communicate throught a Chat system.
 ## EOL
 
 This project was supported and done in formerly UVHC ( University of Valenciennes ) now called "Université Polytechnique des hauts de France". 
- Due to the obtention of their master degree , the authors have abandonned this project.
+ Due to the obtention of their master degree , the authors have abandoned this project.
  A new project using STL and GLM for the core engine as well as a more well build framework design only to 
